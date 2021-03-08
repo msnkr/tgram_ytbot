@@ -62,8 +62,11 @@ try:
         updater.dispatcher.add_handler(CommandHandler('download', get_audio))
 
         updater.start_polling()
+        updater.idle()
 
 
     main()
+
+    
 except FileNotFoundError:
     print('File not found error.')
