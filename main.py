@@ -8,11 +8,11 @@ import youtube_dl
 import os
 
 
-def start(update, bot):
-    bot.send_message(chat_id=update.effective_chat.id, text='I am a bot.')
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text='I am a bot. Type {/search} to search artist and song name. You will recieve a message when the file is ready for download')
 
 
-def get_url(update: Update, context=CallbackContext ):
+def get_url(update: Update, context=CallbackContext):
     text = update.message.text
     results = YoutubeSearch(text, max_results=1).to_json()
 
@@ -22,6 +22,7 @@ def get_url(update: Update, context=CallbackContext ):
     url = 'https://www.youtube.com'
     full_url = url + url.join(new_result)
     get_dl(full_url)
+    context.bot.send_message(chat_id=update.effective_chat.id, text='The file is finished downloading. Type {/download} to download the file. ')
     
 
 def get_dl(full_url):
@@ -32,13 +33,16 @@ def get_dl(full_url):
         'preferredcodec': 'mp3',
         'preferredquality': '192',
     }]}
+
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([full_url])
- 
+        
 
-def aud(update, context):
-    for audio_file in os.listdir(r'C:\Users\Digital\Documents\Mikyle\PyFiles'):
-        context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(f'{audio_file}.mp3', 'rb'))
+def get_audio(update, context):       
+        for file in os.listdir(r'C:\Users\Digital\Documents\Mikyle\PyFiles'):
+            if file.endswith('.mp3'):
+                context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(f'{file}', 'rb'))
+                os.remove(file)
 
 
 def main():
@@ -49,8 +53,8 @@ def main():
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
 
-    updater.dispatcher.add_handler(CommandHandler('download', get_url))
-
+    updater.dispatcher.add_handler(CommandHandler('search', get_url))
+    updater.dispatcher.add_handler(CommandHandler('download', get_audio))
 
     updater.start_polling()
     updater.idle()
