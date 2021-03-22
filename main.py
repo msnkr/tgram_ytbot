@@ -14,7 +14,7 @@ try:
 
     def get_url(update: Update, context=CallbackContext):
 
-        for file in os.listdir(r'C:\Users\Digital\Documents\Mikyle\PyFiles\TelegramAPI'):
+        for file in os.listdir('/home/pi'):
                 if file.endswith('.mp3'):
                     os.remove(file)
 
@@ -44,7 +44,7 @@ try:
             
 
     def get_audio(update, context):       
-            for file in os.listdir(r'C:\Users\Digital\Documents\Mikyle\PyFiles\TelegramAPI'):
+            for file in os.listdir('/home/pi'):
                 if file.endswith('.mp3'):
                     context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(f'{file}', 'rb'))
                     os.remove(file)
