@@ -15,7 +15,7 @@ try:
 
 
     def get_audio_url(update: Update, context=CallbackContext):
-        for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ytbot'):
+        for file in os.listdir('/home/pi'):
                 if file.endswith('.mp3'):
                     os.remove(file)
 
@@ -46,14 +46,14 @@ try:
             
 
     def get_audio(update, context):       
-            for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ytbot'):
+            for file in os.listdir('/home/pi'):
                 if file.endswith('.mp3'):
                     context.bot.send_audio(chat_id=update.effective_chat.id, audio=open(f'{file}', 'rb'))
                     os.remove(file)
 
 
     def get_video_url(update: Update, context=CallbackContext):
-        for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ytbot'):
+        for file in os.listdir('/home/pi'):
                 if file.endswith('.mp4'):
                     os.remove(file)
 
@@ -75,7 +75,7 @@ try:
             
 
     def get_video(update, context):       
-            for file in os.listdir(r'C:\Users\Digital\Documents\GitHub\tgram_ytbot'):
+            for file in os.listdir('/home/pi'):
                 if file.endswith('.mp4'):
                     context.bot.send_video(chat_id=update.effective_chat.id, video=open(f'{file}', 'rb'))
                     os.remove(file)
