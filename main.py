@@ -8,7 +8,7 @@ import os
 
 try:
     def start(update, context):
-        context.bot.send_message(chat_id=update.effective_chat.id, text='I am a bot. Type {/audio {artist song}} to search artist and song name audio. Type {/video} to search artist and song video. You will recieve a message when the file is ready for download. Example {/video Joji Gimme Love}. ')
+        context.bot.send_message(chat_id=update.effective_chat.id, text='I am a bot. Type {/audio {artist song}} to search artist and song name audio. Type {/video {artist video}} to search artist and song video. You will recieve a message when the file is ready for download. Example {/video Joji Gimme Love}, {/audio Joji Gimme Love} ')
 
 
     def get_audio_url(update: Update, context=CallbackContext):
@@ -26,7 +26,7 @@ try:
         full_url = url + url.join(new_result)
         print(full_url)
         get_audio_dl(full_url)
-        context.bot.send_message(chat_id=update.effective_chat.id, text='The file is finished downloading. Type {/downloadaudio} to download the file. ')
+        context.bot.send_message(chat_id=update.effective_chat.id, text='The file is finished downloading. Press {/da} to download the file. ')
         
 
     def get_audio_dl(full_url):
@@ -63,7 +63,7 @@ try:
         url = 'https://www.youtube.com'
         full_url = url + url.join(new_result)
         get_video_dl(full_url)
-        context.bot.send_message(chat_id=update.effective_chat.id, text='The file is finished downloading. Type {/downloadvideo} to download the file. ')
+        context.bot.send_message(chat_id=update.effective_chat.id, text='The file is finished downloading. Press {/dv} to download the Video. ')
         
 
     def get_video_dl(full_url):
